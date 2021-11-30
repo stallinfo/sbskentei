@@ -22,3 +22,7 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+Rails bootstrap
+https://dev.to/songta17/rails-6-with-bootstrap-5-5c08
+yarn add bootstrap@next jquery @popperjs/core
+
