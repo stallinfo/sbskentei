@@ -1,0 +1,37 @@
+<% provide(:title,"ﾛｸﾞｲﾝ") %>
+<div class="row justify-content-xl-center" id="register-card">
+  <div class="col col-xl-5">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="text-center"><strong>💻ログイン</strong></h3>
+      </div>
+      <div class="card-body">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="field">
+            メール<br />
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
+          </div>
+          </br>
+          <div class="field">
+            パスワード<br />
+            <%= f.password_field :password, autocomplete: "current-password", class: "form-control" %>
+          </div>
+          </br>
+          <% if devise_mapping.rememberable? -%>
+            <div class="field">
+              <%= f.check_box :remember_me %>
+              ログイン状態を保持
+            </div>
+          <% end -%>
+        
+          <div class="actions d-grid gap-2">
+            <%= f.submit "ログイン", class: "btn btn-outline-primary" %>
+          </div>
+        <% end %>
+      </div>
+      <div class="card-footer text-muted mb-0 pb-0">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>
