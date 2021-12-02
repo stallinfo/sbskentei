@@ -1,2 +1,42 @@
-<h1>Landing#home</h1>
-<p>Find me in app/views/landing/home.html.erb</p>
+<% provide(:title,"Home") %>
+<div class="row mt-1">
+  <div class="col-4">
+    <div class="card shadow">
+      <div class="card-header text-center" id="card-title">
+        <h4>検定問題</h4>
+      </div>
+      <div class="card-body text-center">
+        <%= image_tag("cheat.png", alt:"yokyu icon", size: "270x144", id: "yokyu_icon") %>
+      </div>
+      <div class="card-footer d-grid">
+        <%= link_to "実行", kentei_path, class: "btn btn-primary btn-sm btn3d", role: "button" %>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card shadow">
+      <div class="card-header text-center" id="card-title">
+        <h4>報告</h4>
+      </div>
+      <div class="card-body text-center">
+        <%= image_tag("report.jpeg", alt:"yokyu icon", size: "280x144", id: "yokyu_icon") %>
+      </div>
+      <div class="card-footer d-grid">
+        <%= link_to "実行", "#", class: "btn btn-primary btn-sm btn3d", role: "button" %>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="card shadow">
+      <div class="card-header text-center" id="card-title">
+        <h4>その他</h4>
+      </div>
+      <div class="card-body text-center">
+        <%= image_tag("sbs_logo.png", alt:"yokyu icon", size: "200x144", id: "yokyu_icon") %>
+      </div>
+      <div class="card-footer d-grid">
+        <%= link_to "実行", "#", class: "btn btn-primary btn-sm btn3d", role: "button" %>
+      </div>
+    </div>
+  </div>
+</div>

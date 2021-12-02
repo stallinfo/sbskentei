@@ -1,0 +1,2 @@
+module KenteiHelper
+end
