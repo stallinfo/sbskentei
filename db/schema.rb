@@ -10,12 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_02_073707) do
+ActiveRecord::Schema.define(version: 2021_12_08_075244) do
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer "priority", default: 0, null: false
+    t.integer "attempts", default: 0, null: false
+    t.text "handler", null: false
+    t.text "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string "locked_by"
+    t.string "queue"
+    t.datetime "created_at", precision: 6
+    t.datetime "updated_at", precision: 6
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
 
   create_table "domains", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "kchoices", force: :cascade do |t|
+    t.integer "kmondai_id", null: false
+    t.string "sentence"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "number"
+    t.index ["kmondai_id"], name: "index_kchoices_on_kmondai_id"
+  end
+
+  create_table "kmondais", force: :cascade do |t|
+    t.integer "number"
+    t.string "question"
+    t.integer "level"
+    t.string "answer"
+    t.string "system"
+    t.string "order"
+    t.string "suborder"
+    t.string "explanation"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "oriquestion"
+    t.boolean "demasu"
   end
 
   create_table "users", force: :cascade do |t|
@@ -31,4 +70,5 @@ ActiveRecord::Schema.define(version: 2021_12_02_073707) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "kchoices", "kmondais"
 end

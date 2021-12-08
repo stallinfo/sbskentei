@@ -1,0 +1,51 @@
+<% provide(:title,"毎日検定") %>
+</div>
+<div class="row">
+  <aside class="col-xl-1">
+    <%= render 'side' %>
+  </aside>
+  <div class="col-xl-11">
+    <p id="notice"><%= notice %></p>
+
+    <h1>Kmondais</h1>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Question</th>
+          <th>Level</th>
+          <th>Answer</th>
+          <th>System</th>
+          <th>Order</th>
+          <th>Suborder</th>
+          <th>Explanation</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @kmondais.each do |kmondai| %>
+          <tr>
+            <td><%= kmondai.number %></td>
+            <td><%= kmondai.question %></td>
+            <td><%= kmondai.level %></td>
+            <td><%= kmondai.answer %></td>
+            <td><%= kmondai.system %></td>
+            <td><%= kmondai.order %></td>
+            <td><%= kmondai.suborder %></td>
+            <td><%= kmondai.explanation %></td>
+            <td><%= link_to 'Show', kmondai %></td>
+            <td><%= link_to 'Edit', edit_kmondai_path(kmondai) %></td>
+            <td><%= link_to 'Destroy', kmondai, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+
+    <%= link_to 'New Kmondai', new_kmondai_path %>
+  </div>
+</div>
+<div class="container">

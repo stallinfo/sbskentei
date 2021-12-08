@@ -1,0 +1,2 @@
+module KmondaisHelper
+end

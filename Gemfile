@@ -28,6 +28,13 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
+gem 'rubyXL'
+gem 'delayed_job_active_record'
+# run following for delayjob
+# rails generate delayed_job:active_record
+# rails db:migrate
+# for heroku :
+# heroku run rake jobs:work
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

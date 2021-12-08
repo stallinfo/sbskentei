@@ -1,0 +1,16 @@
+</div>
+<div class="row">
+  <aside class="col-xl-1">
+    <%= render 'side' %>
+  </aside>
+  <div class="col-xl-11">
+    <p id="notice"><%= notice %></p>
+      <%= form_for(:excelupload, url: kmondaiexcel_path) do |f| %>
+        <%= f.label :filename, "Excelファイル" %>
+        <%= f.file_field :filename, class: 'form-control mb-1', accept: 'excel/xlsx' %>
+        </br>
+        <%= f.submit "アップデート", class: "btn btn-outline-primary btn-block" %>
+      <% end %>
+  </div>
+</div>
+<div class="container">

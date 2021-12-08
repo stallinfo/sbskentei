@@ -1,0 +1,16 @@
+<% provide(:title,"毎日検定") %>
+</div>
+<div class="row">
+  <aside class="col-xl-1">
+    <%= render 'side' %>
+  </aside>
+  <div class="col-xl-11">
+    <p id="notice"><%= notice %></p>
+    <h1>New Kmondai</h1>
+
+    <%= render 'form', kmondai: @kmondai %>
+
+    <%= link_to 'Back', kmondais_path %>
+  </div>
+</div>
+<div class="container">

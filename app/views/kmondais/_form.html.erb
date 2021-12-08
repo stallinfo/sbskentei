@@ -1,0 +1,57 @@
+<%= form_with(model: kmondai) do |form| %>
+  <% if kmondai.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(kmondai.errors.count, "error") %> prohibited this kmondai from being saved:</h2>
+
+      <ul>
+        <% kmondai.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :number %>
+    <%= form.number_field :number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :question %>
+    <%= form.text_field :question %>
+  </div>
+
+  <div class="field">
+    <%= form.label :level %>
+    <%= form.number_field :level %>
+  </div>
+
+  <div class="field">
+    <%= form.label :answer %>
+    <%= form.text_field :answer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :system %>
+    <%= form.text_field :system %>
+  </div>
+
+  <div class="field">
+    <%= form.label :order %>
+    <%= form.text_field :order %>
+  </div>
+
+  <div class="field">
+    <%= form.label :suborder %>
+    <%= form.text_field :suborder %>
+  </div>
+
+  <div class="field">
+    <%= form.label :explanation %>
+    <%= form.text_field :explanation %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
