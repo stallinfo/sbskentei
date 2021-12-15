@@ -1,44 +1,53 @@
-<p id="notice"><%= notice %></p>
+</div>
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-header">
+      <p id="notice"><%= notice %></p>
+    </div>
+    <div class="card-body">
+      <p>
+        <strong>Number:</strong>
+        <%= @kmondai.number %>
+      </p>
 
-<p>
-  <strong>Number:</strong>
-  <%= @kmondai.number %>
-</p>
+      <p>
+        <strong>Question:</strong>
+        <%= @kmondai.question %>
+      </p>
 
-<p>
-  <strong>Question:</strong>
-  <%= @kmondai.question %>
-</p>
+      <p>
+        <strong>Level:</strong>
+        <%= @kmondai.level %>
+      </p>
 
-<p>
-  <strong>Level:</strong>
-  <%= @kmondai.level %>
-</p>
+      <p>
+        <strong>Answer:</strong>
+        <%= @kmondai.answer %>
+      </p>
 
-<p>
-  <strong>Answer:</strong>
-  <%= @kmondai.answer %>
-</p>
+      <p>
+        <strong>System:</strong>
+        <%= @kmondai.system %>
+      </p>
 
-<p>
-  <strong>System:</strong>
-  <%= @kmondai.system %>
-</p>
+      <p>
+        <strong>Order:</strong>
+        <%= @kmondai.order %>
+      </p>
 
-<p>
-  <strong>Order:</strong>
-  <%= @kmondai.order %>
-</p>
+      <p>
+        <strong>Suborder:</strong>
+        <%= @kmondai.suborder %>
+      </p>
 
-<p>
-  <strong>Suborder:</strong>
-  <%= @kmondai.suborder %>
-</p>
-
-<p>
-  <strong>Explanation:</strong>
-  <%= @kmondai.explanation %>
-</p>
-
-<%= link_to 'Edit', edit_kmondai_path(@kmondai) %> |
-<%= link_to 'Back', kmondais_path %>
+      <p>
+        <strong>Explanation:</strong>
+        <%= @kmondai.explanation %>
+      </p>
+    </div>
+    <div class="card-footer">
+      <%= link_to 'Edit', edit_kmondai_path(@kmondai) %> |
+      <%= link_to 'Back', kmondais_path %>
+    </div>
+</div>
+<div class="container">

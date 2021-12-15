@@ -13,45 +13,45 @@
 
   <div class="field">
     <%= form.label :number %>
-    <%= form.number_field :number %>
+    <%= form.number_field :number, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :question %>
-    <%= form.text_field :question %>
+    <%= form.text_field :question, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :level %>
-    <%= form.number_field :level %>
+    <%= form.number_field :level, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :answer %>
-    <%= form.text_field :answer %>
+    <%= form.text_field :answer, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :system %>
-    <%= form.text_field :system %>
+    <%= form.text_field :system, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :order %>
-    <%= form.text_field :order %>
+    <%= form.text_field :order, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :suborder %>
-    <%= form.text_field :suborder %>
+    <%= form.text_field :suborder, class: 'form-control' %>
   </div>
 
   <div class="field">
     <%= form.label :explanation %>
-    <%= form.text_field :explanation %>
+    <%= form.text_field :explanation, class: 'form-control' %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions d-grid">
+    <%= form.submit '登録', class: 'btn btn-success btn3d' %>
   </div>
 <% end %>

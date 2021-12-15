@@ -1,6 +1,22 @@
-<h1>Editing Kmondai</h1>
-
-<%= render 'form', kmondai: @kmondai %>
-
-<%= link_to 'Show', @kmondai %> |
-<%= link_to 'Back', kmondais_path %>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    <aside class="col-xl-1">
+      <%= render 'side' %>
+    </aside>
+    <div class="col-xl-11">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>Editing Kmondai</h1>
+        </div>
+        <div class="card-body">
+          <%= render 'form', kmondai: @kmondai %>
+        </div>
+        <div class="card-footer">
+          <%= link_to '表示', @kmondai, class: "btn btn-primary btn3d" %>
+          <%= link_to '戻る', kmondais_path, class: "btn btn-warning btn3d" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,51 +1,69 @@
 <% provide(:title,"毎日検定") %>
 </div>
+<div class="container-fluid">
 <div class="row">
   <aside class="col-xl-1">
     <%= render 'side' %>
   </aside>
-  <div class="col-xl-11">
-    <p id="notice"><%= notice %></p>
+  <div class="col-xl-11 mr-0 pr-0">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-4 text-end">
+            <h3>検定問題一覧</h3>
+          </div>
+          <div class="col-8 pagination justify-content-end">
+            <%= will_paginate(@kmondais, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %> 
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p id="notice"><%= notice %></p>
+        
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-striped table-bordered">
+              <thead>
+                <tr class="table-info text-center">
+                  <th>番号</th>
+                  <th>問題</th>
+                  <th>ﾚﾍﾞﾙ</th>
+                  <th>答え</th>
+                  <th>ｼｽﾃﾑ名,<br/>オーダ種,<br/>分類</th>
+                  <th>説明</th>
+                  <th colspan="3">機能</th>
+                </tr>
+              </thead>
 
-    <h1>Kmondais</h1>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Number</th>
-          <th>Question</th>
-          <th>Level</th>
-          <th>Answer</th>
-          <th>System</th>
-          <th>Order</th>
-          <th>Suborder</th>
-          <th>Explanation</th>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @kmondais.each do |kmondai| %>
-          <tr>
-            <td><%= kmondai.number %></td>
-            <td><%= kmondai.question %></td>
-            <td><%= kmondai.level %></td>
-            <td><%= kmondai.answer %></td>
-            <td><%= kmondai.system %></td>
-            <td><%= kmondai.order %></td>
-            <td><%= kmondai.suborder %></td>
-            <td><%= kmondai.explanation %></td>
-            <td><%= link_to 'Show', kmondai %></td>
-            <td><%= link_to 'Edit', edit_kmondai_path(kmondai) %></td>
-            <td><%= link_to 'Destroy', kmondai, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-
-    <br>
-
-    <%= link_to 'New Kmondai', new_kmondai_path %>
+              <tbody>
+                <% @kmondais.each do |kmondai| %>
+                  <tr>
+                    <td class="text-center"><%= kmondai.number %></td>
+                    <td><%= kmondai.question %></td>
+                    <td class="text-center"><%= kmondai.level %></td>
+                    <td class="text-center"><%= kmondai.answer %></td>
+                    <td><%= kmondai.system %><br/>
+                    <%= kmondai.order %><br/>
+                    <%= kmondai.suborder %></td>
+                    <td><%= kmondai.explanation %></td>
+                    <td><%= link_to '表示', kmondai, class: "btn btn-primary btn-sm btn3d" %></td>
+                    <td><%= link_to '編集', edit_kmondai_path(kmondai), class: "btn btn-warning btn-sm btn3d" %></td>
+                    <td><%= link_to '削除', kmondai, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm btn3d" %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="pagination justify-content-end">
+          <%= will_paginate(@kmondais, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+        </div>
+      </div>
+      <div class="card-footer">
+        <%= link_to '新規問題', new_kmondai_path, class: "btn btn-info btn3d" %>
+      </div>
+    </div>
   </div>
+</div>
 </div>
 <div class="container">

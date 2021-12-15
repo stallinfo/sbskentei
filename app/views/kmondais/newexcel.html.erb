@@ -1,16 +1,25 @@
 </div>
-<div class="row">
-  <aside class="col-xl-1">
-    <%= render 'side' %>
-  </aside>
-  <div class="col-xl-11">
-    <p id="notice"><%= notice %></p>
-      <%= form_for(:excelupload, url: kmondaiexcel_path) do |f| %>
-        <%= f.label :filename, "Excelファイル" %>
-        <%= f.file_field :filename, class: 'form-control mb-1', accept: 'excel/xlsx' %>
-        </br>
-        <%= f.submit "アップデート", class: "btn btn-outline-primary btn-block" %>
-      <% end %>
+<div class="container-fluid">
+  <div class="row">
+    <aside class="col-xl-1">
+      <%= render 'side' %>
+    </aside>
+    <div class="col-xl-11">
+      <div class="card">
+        <div class="card-header text-center">
+          <h3>Excelファイル　アップデート</h3>
+        </div>
+        <div class="card-body">
+          <p id="notice"><%= notice %></p>
+          <%= form_for(:excelupload, url: kmondaiexcel_path) do |f| %>
+            <%= f.label :filename, "Excelファイル" %>
+            <%= f.file_field :filename, class: 'form-control mb-1', accept: 'excel/xlsx' %>
+            </br>
+            <%= f.submit "アップデート", class: "btn btn-primary btn3d" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="container">

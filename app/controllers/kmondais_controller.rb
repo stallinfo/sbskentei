@@ -4,7 +4,8 @@ class KmondaisController < ApplicationController
   # GET /kmondais or /kmondais.json
   def index
     @selected_item = 0
-    @kmondais = Kmondai.all
+    #@kmondais = Kmondai.all
+    @kmondais = Kmondai.paginate(page: params[:page], :per_page => 20)
   end
 
   # GET /kmondais/1 or /kmondais/1.json

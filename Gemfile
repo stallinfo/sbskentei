@@ -35,6 +35,9 @@ gem 'delayed_job_active_record'
 # rails db:migrate
 # for heroku :
 # heroku run rake jobs:work
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+gem 'asana'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
