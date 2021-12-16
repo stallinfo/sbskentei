@@ -10,6 +10,16 @@
           <%= devise_error_messages! %>
         
           <div class="field">
+            <%= f.label :name, "名前:" %><br />
+            <%= f.text_field :name, autofocus: true, class: "form-control" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :asanaapi, "ASANA API:" %>
+            <%= f.text_field :asanaapi, autofocus: true, class: "form-control %>
+          </div>
+
+          <div class="field">
             メール<br />
             <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control" %>
           </div>
