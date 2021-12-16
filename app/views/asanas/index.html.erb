@@ -1,0 +1,28 @@
+<% provide(:title,"ASANA検索") %>
+</div>
+<div class="container-fluid">
+<div class="row">
+  <aside class="col-xl-1">
+    <%= render 'side' %>
+  </aside>
+  <div class="col-xl-11 mr-0 pr-0">
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-4 text-end">
+            <h3>検索</h3>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <%= @workspace.elements[0].gid %><br/>
+        
+        <%= @projects %>
+        <%= @tasks.count %>
+
+      </div>
+      <div class="card-footer">
+      </div>
+    </div>
+  </div>
+</div>

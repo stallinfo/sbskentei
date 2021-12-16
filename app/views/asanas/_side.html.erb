@@ -1,0 +1,16 @@
+<div class="card text-center" style="width: 6rem;">
+  <% if @selected_item==0 %>
+    <a href="<%=asana_path%>" class="card-header pl-4 pt-1 pb-1 bg-info" data-toggle="tooltip" data-placement="right" title="タスク一覧">
+  <% else %>
+    <a href="<%=asana_path%>" class="card-body pl-4 pt-1 pb-1 bg-light border-bottom" data-toggle="tooltip" data-placement="right" title="タスク一蘭">
+  <% end %>
+    <%= image_tag("ico_search.png", alt:"yokyu icon", size: "40x45", id: "yokyu_icon") %>
+  </a>
+  <% if @selected_item==1 %>
+    <a href="<%=taskkpi_path%>" class="card-header pl-4 pt-1 pb-1 bg-info" data-toggle="tooltip" data-placement="right" title="KPI">
+  <% else %>
+    <a href="<%=taskkpi_path%>" class="card-body pl-4 pt-1 pb-1 bg-light border-bottom" data-toggle="tooltip" data-placement="right" title="KPI">
+  <% end %>
+    <%= image_tag("ico_kpi.png", alt:"yokyu icon", size: "40x45", id: "yokyu_icon") %>
+  </a>
+</div>

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  get '/asana', to: 'asanas#index'
+  get '/taskkpi', to: 'asanas#kpi'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
