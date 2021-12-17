@@ -139,6 +139,7 @@ class AsanaapiController < ApplicationController
         taskid = params[:taskid]
         hour = params[:hour]
         datestring = params[:date]
+        var1 = JSON.parse(params[:taskid])
         
         #client = Asana::Client.new do |c|
         #    c.authentication :access_token, apikey
@@ -147,7 +148,7 @@ class AsanaapiController < ApplicationController
         
         #result = client.tasks.create_subtask_for_task(task_gid: taskid, name: datestring, custom_fields: {"1201530869444176": hour})
         test = {taskid: taskid, hour: hour, date: datestring}
-        jsonMsg(200, "create task", test)
+        jsonMsg(200, "create task", var1 )
     end
 
     private 
