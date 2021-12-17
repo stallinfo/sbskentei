@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   
   get '/asana', to: 'asanas#index'
   get '/taskkpi', to: 'asanas#kpi'
+  post '/asanaapitest', to: 'asanas#apitest'
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
