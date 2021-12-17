@@ -8,7 +8,9 @@ class AsanaapiController < ApplicationController
 
     def teamlist
         apikey = request.headers["apikey"]
-
+        if !apikey
+            apikey = params[:apikey] 
+        end
         client = Asana::Client.new do |c|
             c.authentication :access_token, apikey
         end
@@ -28,6 +30,9 @@ class AsanaapiController < ApplicationController
 
     def projectlist
         apikey = request.headers["apikey"]
+        if !apikey 
+            apikey = params[:apikey]
+        end
         #teamid = request.headers["teamid"]
         #apikey = params[:apikey]
         teamid = params[:teamid]
@@ -47,6 +52,30 @@ class AsanaapiController < ApplicationController
             results.push result
         end
         jsonMsg(200, "プロジェクト一蘭", results)
+    end
+
+    def pv_tasklist
+        apikey = params[:apikey]
+        projectid = params[:projectid]
+    end
+
+    def project
+        apikey = request.headers["apikey"]
+        if !apikey
+            apikey = params[:apikey]
+        end 
+        projectid = params[:projectid]
+
+        client = Asana::Client.new do |c|
+            c.authentication :access_token, apikey
+        end
+        ps = client.projects.get_project(project_gid: '1201100703207559')
+        jsonMsg(200, "進捗", ps)
+
+    end
+
+    def create_task_01
+
     end
 
     private 

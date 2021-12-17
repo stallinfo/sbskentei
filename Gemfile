@@ -38,6 +38,7 @@ gem 'delayed_job_active_record'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'asana'
+gem 'rack-cors'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

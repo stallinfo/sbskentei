@@ -4,10 +4,14 @@ Rails.application.routes.draw do
   get '/taskkpi', to: 'asanas#kpi'
   get '/asanaapitest', to: 'asanaapi#ramen01'
   post '/asanaapitest', to: 'asanaapi#ramen01'
-  #get '/asanateamlist', to: 'asanaapi#teamlist'
+  get '/asanateamlist', to: 'asanaapi#teamlist'
   post '/asanateamlist', to: 'asanaapi#teamlist'
   get '/asanaprojectlist', to: 'asanaapi#projectlist'
   #post '/asanaprojectlist', to: 'asanaapi#projectlist'
+  get '/asana_project', to: 'asanaapi#project'
+  get '/asana_create_task_01', to: 'asanaapi#create_task_01'
+  post '/asana_create_task_01', to: 'asanaapi#create_task_01'
+  
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
