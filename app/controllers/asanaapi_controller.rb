@@ -139,7 +139,7 @@ class AsanaapiController < ApplicationController
         taskid = params[:taskid]
         hour = params[:hour]
         datestring = params[:date]
-        var1 = JSON.parse(params[:taskid])
+        var1 = JSON.parse(params)
         
         #client = Asana::Client.new do |c|
         #    c.authentication :access_token, apikey
