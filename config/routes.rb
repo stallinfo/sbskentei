@@ -4,6 +4,10 @@ Rails.application.routes.draw do
   get '/taskkpi', to: 'asanas#kpi'
   get '/asanaapitest', to: 'asanaapi#ramen01'
   post '/asanaapitest', to: 'asanaapi#ramen01'
+  get '/asanateamlist', to: 'asanaapi#teamlist'
+  post '/asanateamlist', to: 'asanaapi#teamlist'
+  get '/asanaprojectlist', to: 'asanaapi#projectlist'
+  
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
