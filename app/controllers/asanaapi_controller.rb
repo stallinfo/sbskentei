@@ -136,9 +136,10 @@ class AsanaapiController < ApplicationController
         if !apikey
             apikey = params[:apikey]
         end 
-        taskid = params["taskid"]
-        hour = params["hour"]
-        datestring = params["date"]
+        taskid = params[:taskid]
+        hour = params[:hour]
+        datestring = params[:date]
+        
         
         client = Asana::Client.new do |c|
             c.authentication :access_token, apikey
