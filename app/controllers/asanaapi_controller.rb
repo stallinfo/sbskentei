@@ -8,13 +8,15 @@ class AsanaapiController < ApplicationController
 
     def teamlist
         apikey = request.headers["apikey"]
+        #apikey = params[:apikey]
         client = Asana::Client.new do |c|
             c.authentication :access_token, apikey
         end
 
-        workspaces = client.workspaces.find_all
-        wid = workspaces.elements[0].gid
-        teams = client.teams.get_teams_for_organization(workspace_gid: wid, options: {fields: ["gid", "name"]})
+        #workspaces = client.workspaces.find_all
+        #wid = workspaces.elements[0].gid
+        #debugger
+        teams = client.teams.get_teams_for_organization(workspace_gid: "505269877956434", options: {fields: ["gid", "name"]})
         result = {}
         results = []
         
