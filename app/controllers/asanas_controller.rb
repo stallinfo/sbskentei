@@ -1,5 +1,5 @@
 class AsanasController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  
   def index #get
     @selected_item = 0
  
@@ -21,16 +21,5 @@ class AsanasController < ApplicationController
     @selected_item = 1
   end
 
-  def apitest
-    param01 = params[:title]
-    jsonMsg(500,"Welcome to Asana Ramen", param01)
-  end
 
-  private 
-  def jsonMsg(errNum, errMessage, results)
-      responseInfo = {status: errNum, developerMessage: errMessage}
-      metadata = {responseInfo: responseInfo}
-      jsonString = {metadata: metadata, results: results}
-      render json: jsonString.to_json
-  end
 end
