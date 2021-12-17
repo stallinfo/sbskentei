@@ -136,11 +136,12 @@ class AsanaapiController < ApplicationController
         if !apikey
             apikey = params[:apikey]
         end 
-        taskid = params[:taskid]
-        hour = params[:hour]
-        datestring = params[:date]
-        var1 = JSON.parse(params)
-        var2 = request.body["taskid"]
+        jsonraw = request.raw_post
+        data_parsed = JSON.parse(jsonraw)
+        taskid = data_parsed["taskid"]
+        hour = data_parsed["hour"]
+        datestring = data_parsed["date"]
+        
         
         #client = Asana::Client.new do |c|
         #    c.authentication :access_token, apikey
@@ -149,7 +150,7 @@ class AsanaapiController < ApplicationController
         
         #result = client.tasks.create_subtask_for_task(task_gid: taskid, name: datestring, custom_fields: {"1201530869444176": hour})
         test = {taskid: taskid, hour: hour, date: datestring}
-        jsonMsg(200, "create task", var2 )
+        jsonMsg(200, "create task", test )
     end
 
     private 
