@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   post '/asanaapitest', to: 'asanaapi#ramen01'
   #get '/asanateamlist', to: 'asanaapi#teamlist'
   post '/asanateamlist', to: 'asanaapi#teamlist'
-  get '/asanaprojectlist', to: 'asanaapi#projectlist'
+  #get '/asanaprojectlist', to: 'asanaapi#projectlist'
   post '/asanaprojectlist', to: 'asanaapi#projectlist'
   devise_for :users, controllers: {
     registrations: 'users/registrations'

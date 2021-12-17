@@ -8,16 +8,13 @@ class AsanaapiController < ApplicationController
 
     def teamlist
         apikey = request.headers["apikey"]
-        #apikey = params[:apikey]
+
         client = Asana::Client.new do |c|
             c.authentication :access_token, apikey
         end
 
-        #workspaces = client.workspaces.find_all
-        #wid = workspaces.elements[0].gid
-        #debugger
         teams = client.teams.get_teams_for_organization(workspace_gid: "505269877956434", options: {fields: ["gid", "name"]})
-        result = {}
+       
         results = []
         
         teams.elements.each do |element|
@@ -30,26 +27,26 @@ class AsanaapiController < ApplicationController
     end
 
     def projectlist
-        apikey = params[:apikey]
-        gid = params[:gid]
+        apikey = request.headers["apikey"]
+        teamid = request.headers["teamid"]
+        #apikey = params[:apikey]
+        #teamid = params[:teamid]
 
         client = Asana::Client.new do |c|
             c.authentication :access_token, apikey
         end
 
-        workspaces = client.workspaces.find_all
-        wid = workspaces.elements[0].gid
-        projects = client.projects.get_projects(team: "1199714224727434")
-        result = {}
+        projects = client.projects.get_projects(team: teamid, options: {fields: ["gid", "name"]})
+       
         results = []
         
-        teams.elements.each do |element|
+        projects.elements.each do |element|
             result = {}
             result["gid"] = element.gid
             result["name"] = element.name
             results.push result
         end
-        jsonMsg(200, "チームズ一蘭", results)
+        jsonMsg(200, "プロジェクト一蘭", results)
     end
 
     private 
