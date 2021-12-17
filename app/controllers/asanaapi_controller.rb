@@ -7,7 +7,7 @@ class AsanaapiController < ApplicationController
     end
 
     def teamlist
-        apikey = params[:apikey]
+        apikey = request.headers["apikey"]
         client = Asana::Client.new do |c|
             c.authentication :access_token, apikey
         end
