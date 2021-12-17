@@ -28,9 +28,9 @@ class AsanaapiController < ApplicationController
 
     def projectlist
         apikey = request.headers["apikey"]
-        teamid = request.headers["teamid"]
+        #teamid = request.headers["teamid"]
         #apikey = params[:apikey]
-        #teamid = params[:teamid]
+        teamid = params[:teamid]
 
         client = Asana::Client.new do |c|
             c.authentication :access_token, apikey
