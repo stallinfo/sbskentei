@@ -234,8 +234,10 @@ class AsanaapiController < ApplicationController
                 task["gid"] = element.gid
                 task["name"] = element.name
                 task["due_on"] = element.due_on
-                if element.custom_fields
-                    task["hours"] = element.custom_fields[0]["number_value"]
+                element.custom_fields.each do |cf|
+                    if cf["number_value"]
+                        task["hours"] = cf["number_value"]
+                    end
                 end
                 task["assignee"] = assignees[element.assignee["gid"]]
                 task["parent_task_gid"] = element.parent["gid"]
@@ -261,15 +263,13 @@ class AsanaapiController < ApplicationController
                 mitumori["gid"] = element.gid
                 mitumori["due_on"] = element.due_on
                 mitumori["name"] = element.name
-                if element.custom_fields
-                    mitumori["hours"] = 0
-                    element.custom_fields.each do |cf|
-                        
-                        if cf["number_value"]
-                            mitumori["hours"] = cf["number_value"]#element.custom_fields[0]["number_value"]
-                        end
+ 
+                element.custom_fields.each do |cf|
+                    if cf["number_value"]
+                        mitumori["hours"] = cf["number_value"]#element.custom_fields[0]["number_value"]
                     end
                 end
+              
                 mitumories.push mitumori
             end
         end
