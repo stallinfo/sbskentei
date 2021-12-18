@@ -131,7 +131,7 @@ class AsanaapiController < ApplicationController
 
     end
 
-    def create_task_01
+    def create_task_01 #create subtask for hourly work
         apikey = request.headers["apikey"]
         if !apikey
             apikey = params[:apikey]
@@ -143,14 +143,13 @@ class AsanaapiController < ApplicationController
         datestring = data_parsed["date"]
         
         
-        #client = Asana::Client.new do |c|
-        #    c.authentication :access_token, apikey
-        #end
-        #user = client.users.get_user(user_gid: 'me', options: {fields: ["gid", "name", "resource_type"]})
+        client = Asana::Client.new do |c|
+            c.authentication :access_token, apikey
+        end
+        user = client.users.get_user(user_gid: 'me', options: {fields: ["gid", "name", "resource_type"]})
         
-        #result = client.tasks.create_subtask_for_task(task_gid: taskid, name: datestring, custom_fields: {"1201530869444176": hour})
-        test = {taskid: taskid, hour: hour, date: datestring}
-        jsonMsg(200, "create task", test )
+        result = client.tasks.create_subtask_for_task(task_gid: taskid, name: datestring, custom_fields: {"1201530869444176": hour})
+        jsonMsg(200, "create task", result )
     end
 
     private 
