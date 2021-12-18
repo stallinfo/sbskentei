@@ -101,7 +101,7 @@ class AsanaapiController < ApplicationController
             apikey = params[:apikey]
         end 
         #sectionid = params[:sectionid]
-        sectionid = "1201517440355938"
+        sectionid = "1201530476925696"
         #datestring = '2021-12-18'
         jsonraw = request.raw_post
         data_parsed = JSON.parse(jsonraw)
@@ -167,7 +167,7 @@ class AsanaapiController < ApplicationController
                 tasks.push task
             end
         end
-        jsonMsg(200, "Tasks in section", tasks)
+        jsonMsg(200, "Tasks in project", tasks)
     end
    
     def pv_section
