@@ -112,8 +112,7 @@ class AsanaapiController < ApplicationController
         end
         user = client.users.get_user(user_gid: 'me', options: {fields: ["gid", "name", "resource_type"]})
 
-        #result = client.tasks.get_tasks_for_section(section_gid: sectionid)
-        result = client.tasks.get_tasks_for_section(section_gid: sectionid, options: {fields: ["gid", "name", "assignee", "completed", "due_on"]})
+        result = client.tasks.get_tasks_for_section(section_gid: sectionid, options: {fields: ["gid", "name", "assignee", "completed", "due_on", "custom_fields", "parent"]})
         tasks = []
         date = Date.parse(datestring)
         result.elements.each do |element|
@@ -126,6 +125,8 @@ class AsanaapiController < ApplicationController
                 task["name"] = element.name
                 task["completed"] = element.completed
                 task["due_on"] = element.due_on
+                task["hours"] = element.custom_fields[0]["number_value"]
+                task["parent"] = element.parent
                 tasks.push task
             end
         end
