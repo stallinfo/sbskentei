@@ -95,7 +95,11 @@ class AsanaapiController < ApplicationController
     end
 
     def taskinsection
-        apikey = params[:apikey]
+    
+        apikey = request.headers["apikey"]
+        if !apikey
+            apikey = params[:apikey]
+        end 
         #sectionid = params[:sectionid]
         sectionid = "1201517440355938"
         #datestring = '2021-12-18'
