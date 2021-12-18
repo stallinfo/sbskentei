@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get '/section', to: 'asanaapi#pv_section'
 
   #get '/tasksinsection', to: 'asanaapi#tasksinsection'
-  #post '/tasksinsection', to: 'asanaapi#tasksinsection'
+  post '/tasksinsection', to: 'asanaapi#tasksinsection'
 
   #get '/tasksinproject', to: 'asanaapi#tasksinproject'
   post '/tasksinproject', to: 'asanaapi#tasksinproject'
