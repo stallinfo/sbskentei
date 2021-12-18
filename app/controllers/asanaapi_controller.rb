@@ -267,7 +267,7 @@ class AsanaapiController < ApplicationController
         end
         finalresult["mitsumori"] = mitumories
         
-        jsonMsg(200, "実績タスク", finalresult)
+        jsonMsg(200, "実績タスクと見積もり🍜", finalresult)
     end
 
     def project
