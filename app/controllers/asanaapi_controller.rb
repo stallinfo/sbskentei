@@ -262,7 +262,13 @@ class AsanaapiController < ApplicationController
                 mitumori["due_on"] = element.due_on
                 mitumori["name"] = element.name
                 if element.custom_fields
-                    mitumori["hours"] = element.custom_fields[0]["number_value"]
+                    mitumori["hours"] = 0
+                    element.custom_fields.each do |cf|
+                        
+                        if cf["number_value"]
+                            mitumori["hours"] = cf["number_value"]#element.custom_fields[0]["number_value"]
+                        end
+                    end
                 end
                 mitumories.push mitumori
             end
