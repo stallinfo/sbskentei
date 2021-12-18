@@ -79,9 +79,9 @@ class AsanaapiController < ApplicationController
         client = Asana::Client.new do |c|
             c.authentication :access_token, apikey
         end
-        result = client.tasks.get_task(task_gid: taskid)
-        #result = client.tasks.get_task(task_gid: taskid, options: {fields: ["gid", "name", "memberships"]})
-        jsonMsg(200, "Task", result)
+        #result = client.tasks.get_task(task_gid: taskid)
+        result = client.tasks.get_task(task_gid: taskid, options: {fields: ["gid", "name", "assignee"]})
+        jsonMsg(200, "Task", result.assignee["gid"])
     end
     
     def pv_subtasks
@@ -94,17 +94,39 @@ class AsanaapiController < ApplicationController
         jsonMsg(200, "subtasks", results)
     end
 
-    def pv_section
+    def taskinsection
         apikey = params[:apikey]
-        sectionid = params[:sectionid]
+        #sectionid = params[:sectionid]
+        sectionid = "1201517440355938"
         client = Asana::Client.new do |c|
             c.authentication :access_token, apikey
         end
-        result = client.tasks.get_task(section_gid: sectionid)
-        #result = client.tasks.get_task(task_gid: taskid, options: {fields: ["gid", "name", "memberships"]})
-        jsonMsg(200, "Task", result)
+        user = client.users.get_user(user_gid: 'me', options: {fields: ["gid", "name", "resource_type"]})
+
+        #result = client.tasks.get_tasks_for_section(section_gid: sectionid)
+        result = client.tasks.get_tasks_for_section(section_gid: sectionid, options: {fields: ["gid", "name", "assignee", "completed"]})
+        tasks = []
+        result.elements.each do |element|
+            if element.assignee && element.assignee["gid"] == user.gid && !element.completed
+                task = {}
+                task["gid"] = element.gid
+                task["name"] = element.name
+                task["completed"] = element.completed
+                tasks.push task
+            end
+        end
+        jsonMsg(200, "Tasks in section", tasks)
     end
    
+    def pv_section
+        apikey = params[:apikey]
+        client = Asana::Client.new do |c|
+            c.authentication :access_token, apikey
+        end
+        projectid = params[:projectid]
+        result = client.sections.get_sections_for_project(project_gid: projectid)
+        jsonMsg(200, "Sections in project", result)
+    end
 
     def pv_tasks
         apikey = params[:apikey]
@@ -137,20 +159,26 @@ class AsanaapiController < ApplicationController
             apikey = params[:apikey]
         end 
         jsonraw = request.raw_post
+
+        #taskid = params[:taskid]
+        #hour = params[:hour]
+        #datestring = params[datestring].to_s
+
         data_parsed = JSON.parse(jsonraw)
         taskid = data_parsed["taskid"]
         hour = data_parsed["hour"]
         datestring = data_parsed["date"]
-        
-        
+
         client = Asana::Client.new do |c|
             c.authentication :access_token, apikey
         end
         user = client.users.get_user(user_gid: 'me', options: {fields: ["gid", "name", "resource_type"]})
         
-        result = client.tasks.create_subtask_for_task(task_gid: taskid, name: datestring, custom_fields: {"1201530869444176": hour}, assignee: user.gid)
-        jsonMsg(200, "create task", result )
+        result = client.tasks.create_subtask_for_task(task_gid: taskid, name: datestring, due_on: datestring, custom_fields: {"1201530869444176": hour}, assignee: user.gid)
+        jsonMsg(200, "create task with ramen", result )
     end
+
+   
 
     private 
         def jsonMsg(errNum, errMessage, results)

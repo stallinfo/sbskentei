@@ -9,14 +9,16 @@ Rails.application.routes.draw do
   get '/asanaprojectlist', to: 'asanaapi#projectlist'
   #post '/asanaprojectlist', to: 'asanaapi#projectlist'
   get '/asana_project', to: 'asanaapi#project'
-  #get '/asanacreatetask', to: 'asanaapi#create_task_01'
+  get '/asanacreatetask', to: 'asanaapi#create_task_01'
   post '/asanacreatetask', to: 'asanaapi#create_task_01'
 
-  #get '/user', to: 'asanaapi#pv_user'
-  #get '/tasks', to: 'asanaapi#pv_tasks'
-  #get '/task', to: 'asanaapi#pv_task'
-  #get '/subtasks', to: 'asanaapi#pv_subtasks'
-  #get '/section', to: 'asanaapi#pv_section'
+  get '/user', to: 'asanaapi#pv_user'
+  get '/tasks', to: 'asanaapi#pv_tasks'
+  get '/task', to: 'asanaapi#pv_task'
+  get '/subtasks', to: 'asanaapi#pv_subtasks'
+  get '/section', to: 'asanaapi#pv_section'
+
+  get '/taskinsection', to: 'asanaapi#taskinsection'
 
 
   
