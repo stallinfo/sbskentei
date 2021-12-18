@@ -148,7 +148,7 @@ class AsanaapiController < ApplicationController
         end
         user = client.users.get_user(user_gid: 'me', options: {fields: ["gid", "name", "resource_type"]})
         
-        result = client.tasks.create_subtask_for_task(task_gid: taskid, name: datestring, custom_fields: {"1201530869444176": hour})
+        result = client.tasks.create_subtask_for_task(task_gid: taskid, name: datestring, custom_fields: {"1201530869444176": hour}, assignee: user.gid)
         jsonMsg(200, "create task", result )
     end
 
