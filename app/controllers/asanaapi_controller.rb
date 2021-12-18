@@ -225,8 +225,8 @@ class AsanaapiController < ApplicationController
             c.authentication :access_token, apikey
         end
         user = client.users.get_user(user_gid: 'me', options: {fields: ["gid", "name", "resource_type"]})
-        task = client.tasks.get_task(task_gid: taskid, options: {fields: ["gid", "name", "assignee"]})
-        result = client.tasks.create_subtask_for_task(task_gid: taskid, name: task.name, due_on: datestring, custom_fields: {"1201530869444176": hour}, assignee: user.gid, projects: ["1201530476925695"])
+        #task = client.tasks.get_task(task_gid: taskid, options: {fields: ["gid", "name", "assignee"]})
+        result = client.tasks.create_subtask_for_task(task_gid: taskid, name: datestring, due_on: datestring, custom_fields: {"1201530869444176": hour}, assignee: user.gid, projects: ["1201530476925695", "1201534787783765"])
         jsonMsg(200, "create task with ramen", result )
     end
 
