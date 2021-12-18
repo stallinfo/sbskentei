@@ -194,7 +194,10 @@ class AsanaapiController < ApplicationController
     end
 
     def jissekitasks
-        apikey = params[:apikey]
+        apikey = request.headers["apikey"]
+        if !apikey
+            apikey = params[:apikey]
+        end 
         client = Asana::Client.new do |c|
             c.authentication :access_token, apikey
         end
