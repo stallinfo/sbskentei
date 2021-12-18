@@ -94,7 +94,7 @@ class AsanaapiController < ApplicationController
         jsonMsg(200, "subtasks", results)
     end
 
-    def taskinsection
+    def tasksinsection
     
         apikey = request.headers["apikey"]
         if !apikey
@@ -114,6 +114,44 @@ class AsanaapiController < ApplicationController
 
         #result = client.tasks.get_tasks_for_section(section_gid: sectionid)
         result = client.tasks.get_tasks_for_section(section_gid: sectionid, options: {fields: ["gid", "name", "assignee", "completed", "due_on"]})
+        tasks = []
+        date = Date.parse(datestring)
+        result.elements.each do |element|
+            if element.due_on
+                due_on = Date.parse(element.due_on)
+            end
+            if element.assignee && element.assignee["gid"] == user.gid && !element.completed && element.due_on && date == due_on
+                task = {}
+                task["gid"] = element.gid
+                task["name"] = element.name
+                task["completed"] = element.completed
+                task["due_on"] = element.due_on
+                tasks.push task
+            end
+        end
+        jsonMsg(200, "Tasks in section", tasks)
+    end
+
+    def tasksinproject
+
+        apikey = request.headers["apikey"]
+        if !apikey
+            apikey = params[:apikey]
+        end 
+        #sectionid = params[:sectionid]
+        projectid = "1201530476925695"
+        #datestring = '2021-12-18'
+        jsonraw = request.raw_post
+        data_parsed = JSON.parse(jsonraw)
+        datestring = data_parsed["date"]
+
+        client = Asana::Client.new do |c|
+            c.authentication :access_token, apikey
+        end
+        user = client.users.get_user(user_gid: 'me', options: {fields: ["gid", "name", "resource_type"]})
+
+       
+        result = client.tasks.get_tasks_for_project(project_gid: projectid, options: {fields: ["gid", "name", "assignee", "completed", "due_on"]})
         tasks = []
         date = Date.parse(datestring)
         result.elements.each do |element|
