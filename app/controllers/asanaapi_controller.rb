@@ -114,12 +114,12 @@ class AsanaapiController < ApplicationController
 
         result = client.tasks.get_tasks_for_section(section_gid: sectionid, options: {fields: ["gid", "name", "assignee", "completed", "due_on", "custom_fields", "parent"]})
         tasks = []
-        date = Date.parse(datestring)
+        #date = Date.parse(datestring)
         result.elements.each do |element|
-            if element.due_on
-                due_on = Date.parse(element.due_on)
-            end
-            if element.assignee && element.assignee["gid"] == user.gid && !element.completed && element.due_on && date == due_on
+            #if element.due_on
+            #    due_on = Date.parse(element.due_on)
+            #end
+            if element.assignee && element.assignee["gid"] == user.gid && !element.completed #&& element.due_on && date == due_on
                 task = {}
                 task["gid"] = element.gid
                 task["name"] = element.name
