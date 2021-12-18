@@ -212,22 +212,22 @@ class AsanaapiController < ApplicationController
         result.elements.each do |element|
             task = {}
             sameproject = false
-            element.projects.each do |project|
-                if project.gid == projectid
-                    sameproject = true
+            # get parent
+            if element.parent && !parents[element.parent["gid"]]
+                parent_task = client.tasks.get_task(task_gid: element.parent["gid"], options: {fields: ["gid", "name", "assignee", "projects"]})
+                parent_task.projects.each do |project|
+                    if project.gid == projectid
+                        sameproject = true
+                    end
                 end
+                parents[element.parent["gid"]] = {name: parent_task.name, sameproject: sameproject}
             end
-            if sameproject
+            # ----
+            if parents[element.parent["gid"]][:sameproject]
                 # get user
                 if element.assignee && !assignees[element.assignee["gid"]]
                     user = client.users.get_user(user_gid: element.assignee["gid"], options: {fields: ["gid", "name"]})
                     assignees[element.assignee["gid"]] = user.name  
-                end
-                # ----
-                # get parent
-                if element.parent && !parents[element.parent["gid"]]
-                    parent_task = client.tasks.get_task(task_gid: element.parent["gid"], options: {fields: ["gid", "name", "assignee"]})
-                    parents[element.parent["gid"]] = parent_task.name
                 end
                 # ----
                 task["gid"] = element.gid
@@ -238,7 +238,7 @@ class AsanaapiController < ApplicationController
                 end
                 task["assignee"] = assignees[element.assignee["gid"]]
                 task["parent_task_gid"] = element.parent["gid"]
-                task["parent_task_name"] = parents[element.parent["gid"]]
+                task["parent_task_name"] = parents[element.parent["gid"]][:name]
                 
                 tasks.push task
             end
