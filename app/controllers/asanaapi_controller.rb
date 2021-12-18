@@ -203,38 +203,71 @@ class AsanaapiController < ApplicationController
         end
         projectid = params[:projectid]
         sectionid = "1201534787783765"
-        result = client.tasks.get_tasks_for_section(section_gid: sectionid, options: {fields: ["gid", "name", "assignee", "completed", "due_on", "custom_fields", "parent"]})
+        sectionid_mitumori = "1201534787783770"
+        result = client.tasks.get_tasks_for_section(section_gid: sectionid, options: {fields: ["gid", "name", "assignee", "completed", "due_on", "custom_fields", "parent", "projects"]})
+      
         tasks = []
         assignees = {}
         parents = {}
         result.elements.each do |element|
             task = {}
-            # get user
-            if element.assignee && !assignees[element.assignee["gid"]]
-                user = client.users.get_user(user_gid: element.assignee["gid"], options: {fields: ["gid", "name"]})
-                assignees[element.assignee["gid"]] = user.name  
+            sameproject = false
+            element.projects.each do |project|
+                if project.gid == projectid
+                    sameproject = true
+                end
             end
-            # ----
-            # get parent
-            if element.parent && !parents[element.parent["gid"]]
-                parent_task = client.tasks.get_task(task_gid: element.parent["gid"], options: {fields: ["gid", "name", "assignee"]})
-                parents[element.parent["gid"]] = parent_task.name
+            if sameproject
+                # get user
+                if element.assignee && !assignees[element.assignee["gid"]]
+                    user = client.users.get_user(user_gid: element.assignee["gid"], options: {fields: ["gid", "name"]})
+                    assignees[element.assignee["gid"]] = user.name  
+                end
+                # ----
+                # get parent
+                if element.parent && !parents[element.parent["gid"]]
+                    parent_task = client.tasks.get_task(task_gid: element.parent["gid"], options: {fields: ["gid", "name", "assignee"]})
+                    parents[element.parent["gid"]] = parent_task.name
+                end
+                # ----
+                task["gid"] = element.gid
+                task["name"] = element.name
+                task["due_on"] = element.due_on
+                if element.custom_fields
+                    task["hours"] = element.custom_fields[0]["number_value"]
+                end
+                task["assignee"] = assignees[element.assignee["gid"]]
+                task["parent_task_gid"] = element.parent["gid"]
+                task["parent_task_name"] = parents[element.parent["gid"]]
+                
+                tasks.push task
             end
-            # ----
-            task["gid"] = element.gid
-            task["name"] = element.name
-            task["due_on"] = element.due_on
-            if element.custom_fields
-                task["hours"] = element.custom_fields[0]["number_value"]
-            end
-            task["assignee"] = assignees[element.assignee["gid"]]
-            task["parent_task_gid"] = element.parent["gid"]
-            task["parent_task_name"] = parents[element.parent["gid"]]
-            
-            tasks.push task
         end
+        finalresult = {}
+        finalresult["jisseki"] = tasks
+        # mitumori
+        mitumories = []
+        result = client.tasks.get_tasks_for_section(section_gid: sectionid_mitumori, options: {fields: ["gid", "name", "assignee", "completed", "due_on", "custom_fields", "parent"]})
+        result.elements.each do |element|
+            mitumori = {}
+            sameproject = false
+            element.projects.each do |project|
+                if project.gid == projectid
+                    sameproject = true
+                end
+            end
+            if sameproject
+                mitumori["gid"] = element.gid
+                mitumori["due_on"] = element.due_on
+                if element.custom_fields
+                    mitumori["hours"] = element.custom_fields[0]["number_value"]
+                end
+                mitumories.push mitumori
+            end
+        end
+        finalresult["mitsumori"] = mitumories
         
-        jsonMsg(200, "実績タスク", tasks)
+        jsonMsg(200, "実績タスク", finalresult)
     end
 
     def project
