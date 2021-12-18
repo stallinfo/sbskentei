@@ -211,10 +211,11 @@ class AsanaapiController < ApplicationController
         parents = {}
         result.elements.each do |element|
             task = {}
-            sameproject = false
+           
             # get parent
             if element.parent && !parents[element.parent["gid"]]
                 parent_task = client.tasks.get_task(task_gid: element.parent["gid"], options: {fields: ["gid", "name", "assignee", "projects"]})
+                sameproject = false
                 parent_task.projects.each do |project|
                     if project.gid == projectid
                         sameproject = true
@@ -259,6 +260,7 @@ class AsanaapiController < ApplicationController
             if sameproject
                 mitumori["gid"] = element.gid
                 mitumori["due_on"] = element.due_on
+                mitumori["name"] = element.name
                 if element.custom_fields
                     mitumori["hours"] = element.custom_fields[0]["number_value"]
                 end
