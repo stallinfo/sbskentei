@@ -193,6 +193,47 @@ class AsanaapiController < ApplicationController
         jsonMsg(200, "tasks", results)
     end
 
+    def jissekitasks
+        apikey = params[:apikey]
+        client = Asana::Client.new do |c|
+            c.authentication :access_token, apikey
+        end
+        projectid = params[:projectid]
+        sectionid = "1201534787783765"
+        result = client.tasks.get_tasks_for_section(section_gid: sectionid, options: {fields: ["gid", "name", "assignee", "completed", "due_on", "custom_fields", "parent"]})
+        tasks = []
+        assignees = {}
+        parents = {}
+        result.elements.each do |element|
+            task = {}
+            # get user
+            if element.assignee && !assignees[element.assignee["gid"]]
+                user = client.users.get_user(user_gid: element.assignee["gid"], options: {fields: ["gid", "name"]})
+                assignees[element.assignee["gid"]] = user.name  
+            end
+            # ----
+            # get parent
+            if element.parent && !parents[element.parent["gid"]]
+                parent_task = client.tasks.get_task(task_gid: element.parent["gid"], options: {fields: ["gid", "name", "assignee"]})
+                parents[element.parent["gid"]] = parent_task.name
+            end
+            # ----
+            task["gid"] = element.gid
+            task["name"] = element.name
+            task["due_on"] = element.due_on
+            if element.custom_fields
+                task["hours"] = element.custom_fields[0]["number_value"]
+            end
+            task["assignee"] = assignees[element.assignee["gid"]]
+            task["parent_task_gid"] = element.parent["gid"]
+            task["parent_task_name"] = parents[element.parent["gid"]]
+            
+            tasks.push task
+        end
+        
+        jsonMsg(200, "実績タスク", tasks)
+    end
+
     def project
         apikey = request.headers["apikey"]
         if !apikey
@@ -237,8 +278,6 @@ class AsanaapiController < ApplicationController
         
         jsonMsg(200, "create task with ramen", result )
     end
-
-   
 
     private 
         def jsonMsg(errNum, errMessage, results)
