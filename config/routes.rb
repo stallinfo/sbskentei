@@ -18,8 +18,8 @@ Rails.application.routes.draw do
   get '/subtasks', to: 'asanaapi#pv_subtasks'
   get '/section', to: 'asanaapi#pv_section'
 
-  get '/taskinsection', to: 'asanaapi#taskinsection'
-
+  get '/tasksinsection', to: 'asanaapi#taskinsection'
+  post '/tasksinsection', to: 'asanaapi#taskinsection'
 
   
   devise_for :users, controllers: {
