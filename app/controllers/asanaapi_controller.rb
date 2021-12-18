@@ -103,9 +103,9 @@ class AsanaapiController < ApplicationController
         #sectionid = params[:sectionid]
         sectionid = "1201530476925696"
         #datestring = '2021-12-18'
-        jsonraw = request.raw_post
-        data_parsed = JSON.parse(jsonraw)
-        datestring = data_parsed["date"]
+        #jsonraw = request.raw_post
+        #data_parsed = JSON.parse(jsonraw)
+        #datestring = data_parsed["date"]
 
         client = Asana::Client.new do |c|
             c.authentication :access_token, apikey
@@ -125,7 +125,9 @@ class AsanaapiController < ApplicationController
                 task["name"] = element.name
                 task["completed"] = element.completed
                 task["due_on"] = element.due_on
-                task["hours"] = element.custom_fields[0]["number_value"]
+                if element.custom_fields
+                    task["hours"] = element.custom_fields[0]["number_value"]
+                end
                 task["parent"] = element.parent
                 tasks.push task
             end
