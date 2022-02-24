@@ -6,6 +6,7 @@ class KenteiController < ApplicationController
 
   def siken
     @selected_item = 1
+    @qrcode = RQRCode::QRCode.new("test", :size => 4, :level => :h)
   end
 
 

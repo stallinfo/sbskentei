@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  
+  # kentei API
+  get '/randomexam', to: 'kenteiapis#randomexam'
+
+  # asana API
   get '/asana', to: 'asanas#index'
   get '/taskkpi', to: 'asanas#kpi'
   get '/asanaapitest', to: 'asanaapi#ramen01'

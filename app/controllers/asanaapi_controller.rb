@@ -125,8 +125,10 @@ class AsanaapiController < ApplicationController
                 task["name"] = element.name
                 task["completed"] = element.completed
                 task["due_on"] = element.due_on
-                if element.custom_fields
-                    task["hours"] = element.custom_fields[0]["number_value"]
+                element.custom_fields.each do |cf|
+                    if cf["number_value"]
+                        task["hours"] = cf["number_value"]
+                    end
                 end
                 task["parent"] = element.parent
                 tasks.push task

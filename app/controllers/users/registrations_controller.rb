@@ -18,9 +18,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    super
+    if !current_user.token 
+      
+    end 
+  end
 
   # PUT /resource
   # def update
