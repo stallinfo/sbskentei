@@ -5,6 +5,32 @@
     <%= render 'side' %>
   </aside>
   <div class="col-xl-11">
+    <div class="card ml-1" id="sentence">
+      <div class="card-header text-center">
+        <%= form_for(:changedate, url: kentei_changedate_path) do |f| %>
+          <div class="row">
+            <div class="col-9">
+              
+            </div>
+            <div class="col-2">
+              <%= f.text_field :selected_date, placeholder: "#{@selected_date.to_date}", class: 'form-control', type: 'date', value: @selected_date %>
+            </div>
+            
+            <div class="col-1">
+              <%= f.submit "変更", class: "btn btn-primary btn-sm btn3d" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="card-body">
+          
+     
+      </div>
+
+      <div class="card-footer">
+      </div>
+    </div>
   </div>
 </div>
 <div class="container">
+

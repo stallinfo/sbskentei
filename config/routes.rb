@@ -38,8 +38,11 @@ Rails.application.routes.draw do
   # kentei 
   get '/kentei', to: 'kentei#index'
   get '/siken', to: 'kentei#siken'
+  get '/refactor', to: 'kentei#refactor'
   resources :kmondais
   get '/kmondaiexcel', to: 'kmondais#newexcel'
   post '/kmondaiexcel', to: 'kmondais#kentei_excel'
+
+  post '/kentei_changedate', to: 'kentei#kentei_changedate'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
