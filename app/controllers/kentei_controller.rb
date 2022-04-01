@@ -22,7 +22,7 @@ class KenteiController < ApplicationController
   end
 
   def refactor
-    
+   
   end
 
   private
