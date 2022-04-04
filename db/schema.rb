@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_23_004356) do
+ActiveRecord::Schema.define(version: 2022_04_01_081725) do
+
+  create_table "dailyexcercises", force: :cascade do |t|
+    t.datetime "daily"
+    t.integer "kmondai_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["kmondai_id"], name: "index_dailyexcercises_on_kmondai_id"
+    t.index ["user_id"], name: "index_dailyexcercises_on_user_id"
+  end
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer "priority", default: 0, null: false
@@ -40,6 +50,18 @@ ActiveRecord::Schema.define(version: 2021_12_23_004356) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "number"
     t.index ["kmondai_id"], name: "index_kchoices_on_kmondai_id"
+  end
+
+  create_table "kenteikaitous", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "datetest"
+    t.string "answer"
+    t.integer "kmondai_id", null: false
+    t.boolean "correct"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["kmondai_id"], name: "index_kenteikaitous_on_kmondai_id"
+    t.index ["user_id"], name: "index_kenteikaitous_on_user_id"
   end
 
   create_table "kmondais", force: :cascade do |t|
@@ -73,5 +95,9 @@ ActiveRecord::Schema.define(version: 2021_12_23_004356) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "dailyexcercises", "kmondais"
+  add_foreign_key "dailyexcercises", "users"
   add_foreign_key "kchoices", "kmondais"
+  add_foreign_key "kenteikaitous", "kmondais"
+  add_foreign_key "kenteikaitous", "users"
 end

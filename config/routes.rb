@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   resources :kmondais
   get '/kmondaiexcel', to: 'kmondais#newexcel'
   post '/kmondaiexcel', to: 'kmondais#kentei_excel'
+  post '/kenteianswer', to: 'kentei#dailyanswer'
 
   post '/kentei_changedate', to: 'kentei#kentei_changedate'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

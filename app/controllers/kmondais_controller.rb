@@ -104,7 +104,9 @@ class KmondaisController < ApplicationController
           answers.each do |k,v|
             kchoice= Kchoice.where("kmondai_id=? AND number=?", kmondai.id, k ).first
             if kchoice==nil
-              Kchoice.delay.create(number: k, sentence: v, kmondai_id: kmondai.id)
+              #Kchoice.delay.create(number: k, sentence: v, kmondai_id: kmondai.id)
+              Kchoice.create(number: k, sentence: v, kmondai_id: kmondai.id)
+            
             else
               kchoice.update_attributes(sentence: v, kmondai_id: kmondai.id)
             end
