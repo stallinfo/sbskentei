@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_01_081725) do
+ActiveRecord::Schema.define(version: 2022_04_07_010145) do
 
   create_table "dailyexcercises", force: :cascade do |t|
     t.datetime "daily"
@@ -41,6 +41,54 @@ ActiveRecord::Schema.define(version: 2022_04_01_081725) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "fkaitos", force: :cascade do |t|
+    t.integer "fukusu_id", null: false
+    t.integer "user_id", null: false
+    t.integer "kmondai_id", null: false
+    t.integer "fmondai_id", null: false
+    t.integer "answer"
+    t.boolean "kettei"
+    t.boolean "correct"
+    t.string "answerstring"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["fmondai_id"], name: "index_fkaitos_on_fmondai_id"
+    t.index ["fukusu_id"], name: "index_fkaitos_on_fukusu_id"
+    t.index ["kmondai_id"], name: "index_fkaitos_on_kmondai_id"
+    t.index ["user_id"], name: "index_fkaitos_on_user_id"
+  end
+
+  create_table "fmondais", force: :cascade do |t|
+    t.integer "fukusu_id", null: false
+    t.integer "kmondai_id", null: false
+    t.boolean "kettei"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["fukusu_id"], name: "index_fmondais_on_fukusu_id"
+    t.index ["kmondai_id"], name: "index_fmondais_on_kmondai_id"
+  end
+
+  create_table "fukusus", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "fname"
+    t.integer "numofexam"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_fukusus_on_user_id"
+  end
+
+  create_table "fusers", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "fukusu_id", null: false
+    t.integer "result"
+    t.boolean "testdone"
+    t.float "resultfloat"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["fukusu_id"], name: "index_fusers_on_fukusu_id"
+    t.index ["user_id"], name: "index_fusers_on_user_id"
   end
 
   create_table "kchoices", force: :cascade do |t|
@@ -97,6 +145,15 @@ ActiveRecord::Schema.define(version: 2022_04_01_081725) do
 
   add_foreign_key "dailyexcercises", "kmondais"
   add_foreign_key "dailyexcercises", "users"
+  add_foreign_key "fkaitos", "fmondais"
+  add_foreign_key "fkaitos", "fukusus"
+  add_foreign_key "fkaitos", "kmondais"
+  add_foreign_key "fkaitos", "users"
+  add_foreign_key "fmondais", "fukusus"
+  add_foreign_key "fmondais", "kmondais"
+  add_foreign_key "fukusus", "users"
+  add_foreign_key "fusers", "fukusus"
+  add_foreign_key "fusers", "users"
   add_foreign_key "kchoices", "kmondais"
   add_foreign_key "kenteikaitous", "kmondais"
   add_foreign_key "kenteikaitous", "users"
