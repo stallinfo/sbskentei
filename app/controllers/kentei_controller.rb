@@ -98,7 +98,7 @@ class KenteiController < ApplicationController
     #datechanged = Date.parse(changedate_params['selected_date'])
     #redirect_to kentei_path(:selected_date => datechanged)
 
-    @selected_item=1
+    @selected_item=0
 
     if params[:changedate][:selected_date]==""
       @selected_date=Time.zone.now.to_date
