@@ -95,8 +95,38 @@ class KenteiController < ApplicationController
   end
 
   def kentei_changedate
-    datechanged = Date.parse(changedate_params['selected_date'])
-    redirect_to kentei_path(:selected_date => datechanged)
+    #datechanged = Date.parse(changedate_params['selected_date'])
+    #redirect_to kentei_path(:selected_date => datechanged)
+
+    @selected_item=1
+
+    if params[:changedate][:selected_date]==""
+      @selected_date=Time.zone.now.to_date
+    else
+      @selected_date = Date.parse(changedate_params['selected_date'])
+      #@selected_date = Date.strptime(params[:changedate][:selected_date], '%m/%d/%Y')
+    end
+
+    if @selected_date <= (Time.zone.now).to_date
+      @kenteidummy=true
+      
+      @answered=Kenteikaitou.where("user_id=? AND DATE(datetest)='#{@selected_date.to_date}'",current_user.id).first
+      if @answered!=nil
+        @decided=false
+      else
+        dailyexcercise = Dailyexcercise.where("DATE(daily)='#{@selected_date.to_date}'").first
+        if dailyexcercise==nil
+          #mondai selected randomly
+          dailyexcercise= randomkentei(@selected_date)
+        end
+        @decided=true
+        @kentei=Kmondai.find(dailyexcercise.kmondai_id)
+        @kchoice=@kentei.kchoices[0]
+      end
+    else
+      @kenteidummy=false
+    end
+    render 'index'
   end
 
   def refactor

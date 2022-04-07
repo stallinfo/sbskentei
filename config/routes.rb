@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   # kentei 
   get '/kentei', to: 'kentei#index'
   get '/siken', to: 'kentei#siken'
-  get '/refactor', to: 'kentei#refactor'
+  get '/sikenindex', to: 'kentei#sikenindex'
   resources :kmondais
   get '/kmondaiexcel', to: 'kmondais#newexcel'
   post '/kmondaiexcel', to: 'kmondais#kentei_excel'

@@ -24,7 +24,7 @@
       </div>
       <div class="card-body">
         
-      
+      <% if @kenteidummy == true %>
       <% if Kmondai.count>0 %>
       <% if @decided %>
         <div class="card-body pb-0">
@@ -164,6 +164,13 @@
             </div>
           </div>
         <% end %>
+      <% end %>
+      <% else %>
+        <div class="row">
+          <div class="col-12">
+            <%= image_tag("kentei/bottomline.jpg", alt:"test icon", size: "474x75", id: "test_icon") %>
+          </div>
+        </div>
       <% end %>
       </div>
     </div>
