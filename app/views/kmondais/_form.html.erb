@@ -54,7 +54,11 @@
       <% sn.order_names.each do |o_name| %>
         <optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;🔹<%=o_name.content%>">
         <% o_name.classification_names.each do |c_name| %>
-          <option value="<%=c_name.id%>">&nbsp;&nbsp;&nbsp;&nbsp;<%=c_name.content%></option>
+          <% if c_name.id == @kmondai.id %>
+            <option selected="selected" value="<%=c_name.id%>">&nbsp;&nbsp;&nbsp;&nbsp;<%=c_name.content%></option>
+          <% else %>
+            <option value="<%=c_name.id%>">&nbsp;&nbsp;&nbsp;&nbsp;<%=c_name.content%></option>
+          <% end %>
         <% end %>
         </optgroup>
       <% end %>
