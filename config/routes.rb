@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :classification_names
+  resources :order_names
+  resources :system_names
   # kentei API
   get '/randomexam', to: 'kenteiapis#randomexam'
 
@@ -44,6 +47,10 @@ Rails.application.routes.draw do
   get '/kentei', to: 'kentei#index'
   get '/siken', to: 'kentei#siken'
   get '/sikenindex', to: 'kentei#sikenindex'
+  get '/shinkishiken', to: 'kentei#shinkishiken'
+  get '/shikenkanri', to: 'kentei#shikenkanri'
+  post '/newtest', to: 'kentei#createtest'
+  post '/choosemondai', to: 'kentei#choosemondai'
   resources :kmondais
   get '/kmondaiexcel', to: 'kmondais#newexcel'
   post '/kmondaiexcel', to: 'kmondais#kentei_excel'

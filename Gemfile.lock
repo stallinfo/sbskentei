@@ -87,6 +87,8 @@ GEM
       xpath (~> 3.2)
     childprocess (4.1.0)
     chunky_png (1.4.0)
+    city-state (0.1.0)
+      rubyzip (>= 1.1)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     delayed_job (4.1.10)
@@ -323,6 +325,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   chunky_png
+  city-state
   delayed_job_active_record
   devise
   jbuilder (~> 2.7)

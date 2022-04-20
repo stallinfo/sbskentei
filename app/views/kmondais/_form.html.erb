@@ -47,6 +47,23 @@
   </div>
 
   <div class="field">
+    <%= form.label :分類 %>
+    <select class="form-select form-select" name="kmondai[classification_name_id]" id="kmondai_classification_name_id">
+    <% @system_name.each do |sn| %>
+      <optgroup label="🔷<%=sn.content%>">
+      <% sn.order_names.each do |o_name| %>
+        <optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;🔹<%=o_name.content%>">
+        <% o_name.classification_names.each do |c_name| %>
+          <option value="<%=c_name.id%>">&nbsp;&nbsp;&nbsp;&nbsp;<%=c_name.content%></option>
+        <% end %>
+        </optgroup>
+      <% end %>
+      </optgroup>
+    <% end %>
+    </select>
+  </div>
+
+  <div class="field">
     <%= form.label :explanation %>
     <%= form.text_field :explanation, class: 'form-control' %>
   </div>

@@ -1,0 +1,32 @@
+<%= form_with(model: classification_name) do |form| %>
+  <% if classification_name.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(classification_name.errors.count, "error") %> prohibited this classification_name from being saved:</h2>
+
+      <ul>
+        <% classification_name.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :order_name_id %>
+    <%= form.grouped_collection_select(:order_name_id, SystemName.all, :order_names, :content, :id, :content) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_07_010145) do
+ActiveRecord::Schema.define(version: 2022_04_18_003024) do
+
+  create_table "classification_names", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id", null: false
+    t.integer "order_name_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_name_id", "content"], name: "index_classification_names_on_order_name_id_and_content"
+    t.index ["order_name_id"], name: "index_classification_names_on_order_name_id"
+    t.index ["user_id"], name: "index_classification_names_on_user_id"
+  end
 
   create_table "dailyexcercises", force: :cascade do |t|
     t.datetime "daily"
@@ -127,6 +138,26 @@ ActiveRecord::Schema.define(version: 2022_04_07_010145) do
     t.boolean "demasu"
   end
 
+  create_table "order_names", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id", null: false
+    t.integer "system_name_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["system_name_id", "content"], name: "index_order_names_on_system_name_id_and_content"
+    t.index ["system_name_id"], name: "index_order_names_on_system_name_id"
+    t.index ["user_id"], name: "index_order_names_on_user_id"
+  end
+
+  create_table "system_names", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["content", "created_at"], name: "index_system_names_on_content_and_created_at"
+    t.index ["user_id"], name: "index_system_names_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -143,6 +174,8 @@ ActiveRecord::Schema.define(version: 2022_04_07_010145) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "classification_names", "order_names"
+  add_foreign_key "classification_names", "users"
   add_foreign_key "dailyexcercises", "kmondais"
   add_foreign_key "dailyexcercises", "users"
   add_foreign_key "fkaitos", "fmondais"
@@ -157,4 +190,7 @@ ActiveRecord::Schema.define(version: 2022_04_07_010145) do
   add_foreign_key "kchoices", "kmondais"
   add_foreign_key "kenteikaitous", "kmondais"
   add_foreign_key "kenteikaitous", "users"
+  add_foreign_key "order_names", "system_names"
+  add_foreign_key "order_names", "users"
+  add_foreign_key "system_names", "users"
 end

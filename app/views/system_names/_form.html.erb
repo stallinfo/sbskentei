@@ -1,0 +1,27 @@
+<%= form_with(model: system_name) do |form| %>
+  <% if system_name.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(system_name.errors.count, "error") %> prohibited this system_name from being saved:</h2>
+
+      <ul>
+        <% system_name.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :content %>
+    <%= form.text_area :content %>
+  </div>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

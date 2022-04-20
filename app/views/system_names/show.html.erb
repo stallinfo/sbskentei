@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @system_name.content %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @system_name.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_system_name_path(@system_name) %> |
+<%= link_to 'Back', system_names_path %>

@@ -16,6 +16,7 @@ class KmondaisController < ApplicationController
   def new
     @selected_item = 0
     @kmondai = Kmondai.new
+    @system_name = SystemName.all
   end
 
   # GET /kmondais/1/edit

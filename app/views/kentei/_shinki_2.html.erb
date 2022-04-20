@@ -1,0 +1,72 @@
+
+<% if @different!=nil && @different!=0 %>
+    <div class="row">
+    <div class="col-12">
+        <% if @different>0 %>
+        <div class="badge badge-danger text-wrap">
+            選んだ問題が<%= @different %>個多すぎる。
+        </div>
+        <% else %>
+        <div class="badge badge-danger text-wrap">
+            選んだ問題が<%= @different*-1 %>個足りない。
+        </div>
+        <% end %>
+    </div>
+    </div>
+<% end %>
+<div class="row text-center">
+    <div class="col-1">
+    №
+    </div>
+    <div class="col-9">
+    問題
+    </div>
+    <div class="col-2">
+    明細
+    </div>
+</div>
+<%= form_for(:choosemondai, url: choosemondai_path) do |f| %>
+    <%= f.hidden_field :fukusu_id, value: @fukusu.id  %>
+    <% @kenteis.each do |kentei| %>
+    <div class="row border-top">
+        <div class="col-1">
+        <%= f.label :chosen, class: "checkbox" do %>
+            <% if @chosen!=nil && @chosen[kentei.number-1]==1 %>
+            <%= f.check_box :chosen, multiple: true, checked: true %>
+            <% else %>
+            <%= f.check_box :chosen, multiple: true %>
+            <% end %>
+        <% end %>
+        <%= kentei.number %>
+        </div>
+        <div class="col-9">
+        <%= kentei.question %>
+        <% kmondais =  Kchoice.where("kmondai_id=?", kentei.id).order("number") %>
+        <% kmondais.each do |kmondai| %>
+        <div class="row">
+            <div class="col-1">
+            <%= kmondai.number %>
+            </div>
+            <div class="col-11">
+            <%= kmondai.sentence %>
+            </div>
+        </div>
+        <% end %>
+        </div>
+        <div class="col-2">
+        Level: <%= kentei.level %></br>
+        ｼｽﾃﾑ:<%= kentei.system %></br>
+        ｵｰﾀﾞｰ:<%= kentei.order %></br>
+        分類:<%= kentei.suborder %>
+        </div>
+    </div>
+    <% end %>
+    <div class="row pb-0">
+    <div class="col-11">
+        <%= f.submit "選択する", class: "btn btn-success btn-block btn3d" %>
+    </div>
+    <div class="col-1 pl-0">
+        <%= image_tag("kentei/chibi02.gif", alt:"yokyu icon", size: "60x60", id: "yokyu_icon") %></br>
+    </div>
+    </div> 
+<% end %>

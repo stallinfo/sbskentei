@@ -9,10 +9,10 @@
       <div class="col-12">
         <ul class="nav nav-tabs">
           <li class="nav-item">
-            <a class="nav-link active <%=@disables[0]%>" aria-current="shinkishiken_page" href=<%=sikenindex_path%> >試験一覧</a> 
+            <a class="nav-link <%=@disables[0]%>" aria-current="shinkishiken_page" href=<%=sikenindex_path%> >試験一覧</a> 
           </li>
           <li class="nav-item">
-            <a class="nav-link <%=@disables[1]%>" aria-current="shinkishiken_page" href=<%=shinkishiken_path%> >新規試験</a> 
+            <a class="nav-link active <%=@disables[1]%>" aria-current="shinkishiken_page" href=<%=shinkishiken_path%> >新規試験</a> 
           </li>
           <li class="nav-item">
             <a class="nav-link <%=@disables[2]%>" aria-current="shinkishiken_page" href=<%=shikenkanri_path%> >試験管理</a> 
@@ -23,8 +23,13 @@
     </div>
     <div class="row border border-top-0 bg-white" style="margin-left: 0px; margin-right: 0px">
       <div class="col-12 ">
-   
-              test
+        <% if @naiyo==0 %>
+          <%= render "shinki_1" %>
+        <% elsif @naiyo=1 %>
+          <%= render 'shinki_2' %>
+        <% else %>
+        <% end %>
+
 
       </div>
     </div>

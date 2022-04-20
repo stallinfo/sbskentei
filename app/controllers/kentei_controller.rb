@@ -91,7 +91,46 @@ class KenteiController < ApplicationController
   
   def siken
     @selected_item = 1
+  
     @qrcode = RQRCode::QRCode.new("test", :size => 4, :level => :h)
+  end
+
+  def sikenindex
+    @disables=['','','']
+    @selected_item=3
+  end
+
+  def shinkishiken
+    @selected_item=3
+    @disables=['','','']
+    @naiyo=0
+    @error_messages=""
+  end
+
+  def createtest
+    @disables=['disabled','','disabled']
+    @naiyo=1
+    @selected_item=3
+    @error_messages=""
+    if fukusu_params['testname']=="" || fukusu_params['testname']==nil
+      @naiyo=1
+      @error_messages="テスト名前を書いてください。"
+    elsif fukusu_params['numofexams'].to_i<=0
+      @naiyo=1
+      @error_messages="問題数を決めてください。"
+    else
+      @fukusu=Fukusu.create(user_id: current_user.id, fname: fukusu_params['testname'], numofexam: fukusu_params['numofexams'].to_i)
+      @kenteis=Kmondai.all.order("number")
+    end
+    render 'shinkishiken'
+  end
+
+  def choosemondai
+  end
+
+  def shikenkanri
+    @selected_item=3
+    @disables=['','','']
   end
 
   def kentei_changedate
@@ -140,6 +179,10 @@ class KenteiController < ApplicationController
 
   def answerquestion_params
     params.require(:answerquestion).permit(:c_date, :kmondai_id, :choices, :cbchoice=>[])
+  end
+
+  def fukusu_params
+    params.require(:fukusu).permit(:testname, :numofexams)
   end
 
   def randomkentei(selected_date)
