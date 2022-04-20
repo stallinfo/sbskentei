@@ -16,12 +16,13 @@ class KmondaisController < ApplicationController
   def new
     @selected_item = 0
     @kmondai = Kmondai.new
-    @system_name = SystemName.all
+    @system_names = SystemName.all
   end
 
   # GET /kmondais/1/edit
   def edit
     @selected_item = 0
+    @system_names = SystemName.all
   end
 
   # POST /kmondais or /kmondais.json
