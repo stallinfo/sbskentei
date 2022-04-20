@@ -4,25 +4,34 @@ class SystemNamesController < ApplicationController
   # GET /system_names or /system_names.json
   def index
     @system_names = SystemName.all
+    @disables = [0,0,0]
+    @selected_item = 2
   end
 
   # GET /system_names/1 or /system_names/1.json
   def show
+    @disables = [0,0,0]
+    @selected_item = 2
   end
 
   # GET /system_names/new
   def new
     @system_name = SystemName.new
+    @disables = [0,0,0]
+    @selected_item = 2
   end
 
   # GET /system_names/1/edit
   def edit
+    @disables = [0,0,0]
+    @selected_item = 2
   end
 
   # POST /system_names or /system_names.json
   def create
     @system_name = SystemName.new(system_name_params)
-
+    @disables = [0,0,0]
+    @selected_item = 2
     respond_to do |format|
       if @system_name.save
         format.html { redirect_to system_name_url(@system_name), notice: "System name was successfully created." }
@@ -36,6 +45,8 @@ class SystemNamesController < ApplicationController
 
   # PATCH/PUT /system_names/1 or /system_names/1.json
   def update
+    @disables = [0,0,0]
+    @selected_item = 2
     respond_to do |format|
       if @system_name.update(system_name_params)
         format.html { redirect_to system_name_url(@system_name), notice: "System name was successfully updated." }
@@ -49,6 +60,8 @@ class SystemNamesController < ApplicationController
 
   # DELETE /system_names/1 or /system_names/1.json
   def destroy
+    @disables = [0,0,0]
+    @selected_item = 2
     @system_name.destroy
 
     respond_to do |format|

@@ -1,0 +1,32 @@
+<% provide(:title,"分類") %>
+</div>
+<div class="container-fluid">
+<div class="row">
+  <aside class="col-xl-1">
+    <%= render 'side' %>
+  </aside>
+  <div class="col-xl-11 mr-0 pr-0">
+    <div class="row">
+      <div class="col-12">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active <%=@disables[0]%>" aria-current="shinkishiken_page" href=<%=system_name_path%> >試験一覧</a> 
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <%=@disables[1]%>" aria-current="shinkishiken_page" href=<%=order_name_path%> >新規試験</a> 
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <%=@disables[2]%>" aria-current="shinkishiken_page" href=<%=classification_name_path%> >試験管理</a> 
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row border border-top-0 bg-white" style="margin-left: 0px; margin-right: 0px">
+      <div class="col-12 ">
+
+              test
+
+      </div>
+    </div>
+  </div>
+</div>

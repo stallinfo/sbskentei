@@ -1,31 +1,67 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Order Names</h1>
+<% provide(:title,"分類　I") %>
+</div>
+<div class="container-fluid">
+<div class="row">
+  <aside class="col-xl-1">
+    <%= render 'side' %>
+  </aside>
+  <div class="col-xl-11 mr-0 pr-0">
+    <div class="row">
+      <div class="col-12">
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link <%=@disables[0]%>" aria-current="system_names_page" href=<%=system_names_path%> >分類I</a> 
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active <%=@disables[1]%>" aria-current="order_names_page" href=<%=order_names_path%> >分類II</a> 
+          </li>
+          <li class="nav-item">
+            <a class="nav-link <%=@disables[2]%>" aria-current="classification_names_page" href=<%=classification_names_path%> >分類III</a> 
+          </li>
+        </ul>
+      </div>
+      
+    </div>
+    <div class="row border border-top-0 bg-white" style="margin-left: 0px; margin-right: 0px">
+      <br/>
+      <div class="col-12 ">
+        <div class="row bg-warning pt-2">
+          <div class="col-2 text-center">
+            <h4>№</h4>
+          </div>
+          <div class="col-7 text-center">
+            <h4>内容</h4>
+          </div>
+          <div class="col-3 text-center">
+            <h4>管理</h4>
+          </div>          
+        </div>
+        <% counter = 1 %>
+        <% @order_names.each do |order_name| %>
+          <div class="row border-bottom pt-2">
+            <div class="col-2 text-center pt-2">
+              <%= counter %>
+            </div>
+            <div class="col-7 pt-2">
+              <%= order_name.system_name.content %> <%= order_name.content %>
+            </div>
+            <div class="col-3 text-center">
+              <%= link_to '表示', order_name, class: "btn btn-success btn-sm btn3d" %>
+              <%= link_to '編集', edit_order_name_path(order_name), class: "btn btn-warning btn-sm btn3d" %>
+              <%= link_to '削除', order_name, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm btn3d" %>
+            </div>          
+          </div>
+          <% counter += 1 %>
+        <% end %>
+      </div>
+    </div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Content</th>
-      <th>User</th>
-      <th>System name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <div class="row border border-top-0 bg-white" style="margin-left: 0px; margin-right: 0px">
+      <div class="col-12">
+        <%= link_to '新規分類II', new_order_name_path, class: "btn btn-primary btn-sm btn3d" %>
+      </div>
+    </div>
+  </div>
+</div>
 
-  <tbody>
-    <% @order_names.each do |order_name| %>
-      <tr>
-        <td><%= order_name.content %></td>
-        <td><%= order_name.user_id %></td>
-        <td><%= order_name.system_name_id %></td>
-        <td><%= link_to 'Show', order_name %></td>
-        <td><%= link_to 'Edit', edit_order_name_path(order_name) %></td>
-        <td><%= link_to 'Destroy', order_name, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Order Name', new_order_name_path %>

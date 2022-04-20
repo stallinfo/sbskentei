@@ -3,24 +3,35 @@ class ClassificationNamesController < ApplicationController
 
   # GET /classification_names or /classification_names.json
   def index
-    @classification_names = ClassificationName.all
+    @disables = [0,0,0]
+    @selected_item = 2
+    #@classification_names = ClassificationName.all
+    @classification_names = ClassificationName.joins(:order_name => :system_name).order('system_names.id')
   end
 
   # GET /classification_names/1 or /classification_names/1.json
   def show
+    @disables = [0,0,0]
+    @selected_item = 2
   end
 
   # GET /classification_names/new
   def new
+    @disables = [0,0,0]
+    @selected_item = 2
     @classification_name = ClassificationName.new
   end
 
   # GET /classification_names/1/edit
   def edit
+    @disables = [0,0,0]
+    @selected_item = 2
   end
 
   # POST /classification_names or /classification_names.json
   def create
+    @disables = [0,0,0]
+    @selected_item = 2
     @classification_name = ClassificationName.new(classification_name_params)
 
     respond_to do |format|
@@ -36,6 +47,8 @@ class ClassificationNamesController < ApplicationController
 
   # PATCH/PUT /classification_names/1 or /classification_names/1.json
   def update
+    @disables = [0,0,0]
+    @selected_item = 2
     respond_to do |format|
       if @classification_name.update(classification_name_params)
         format.html { redirect_to classification_name_url(@classification_name), notice: "Classification name was successfully updated." }
@@ -49,6 +62,8 @@ class ClassificationNamesController < ApplicationController
 
   # DELETE /classification_names/1 or /classification_names/1.json
   def destroy
+    @disables = [0,0,0]
+    @selected_item = 2
     @classification_name.destroy
 
     respond_to do |format|
