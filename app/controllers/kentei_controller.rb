@@ -220,5 +220,21 @@ class KenteiController < ApplicationController
     end
   end
 
+  def check_box_bug(param_checkbox)
+    count_array=0
+    result={}
+    (0..param_checkbox.count-1).each do |i|
+      if param_checkbox[i]=='1'
+        count_array -= 1
+        result[count_array]=1
+        count_array += 1
+      else
+        result[count_array]=0
+        count_array += 1
+      end
+    end
+    return result
+  end
+
 
 end
