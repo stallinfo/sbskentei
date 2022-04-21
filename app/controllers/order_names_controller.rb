@@ -1,6 +1,7 @@
 class OrderNamesController < ApplicationController
   before_action :set_order_name, only: %i[ show edit update destroy ]
-
+  before_action :authenticate_user!
+  
   # GET /order_names or /order_names.json
   def index
     @disables = [0,0,0]

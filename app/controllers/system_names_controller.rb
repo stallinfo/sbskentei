@@ -1,6 +1,7 @@
 class SystemNamesController < ApplicationController
   before_action :set_system_name, only: %i[ show edit update destroy ]
-
+  before_action :authenticate_user!
+  
   # GET /system_names or /system_names.json
   def index
     @system_names = SystemName.all

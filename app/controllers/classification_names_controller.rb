@@ -1,6 +1,6 @@
 class ClassificationNamesController < ApplicationController
   before_action :set_classification_name, only: %i[ show edit update destroy ]
-
+  before_action :authenticate_user!
   # GET /classification_names or /classification_names.json
   def index
     @disables = [0,0,0]

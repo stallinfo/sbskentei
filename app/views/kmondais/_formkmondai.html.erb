@@ -1,0 +1,163 @@
+<%= form_with(model: kmondai) do |form| %>
+    <% if kmondai.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(kmondai.errors.count, "error") %> prohibited this kmondai from being saved:</h2>
+  
+        <ul>
+          <% kmondai.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+    <%= form.hidden_field :id, value: kmondai.id %>
+    <%= form.hidden_field :number, value: kmondai.number %>
+
+    <%= form.hidden_field :level, value: kmondai.level %>
+    <%= form.hidden_field :answer, value: kmondai.answer %>
+
+    <% if kmondai.kchoices.count >0 %>
+        <div class="row ml-3 mr-3 ">
+            <div class="col-1">
+            </div>    
+            <div class="col-1 bg-light text-center">
+                No
+            </div>  
+            <div class="col-7 bg-light text-center">
+                Sentence
+            </div>
+            <div class="col-2 bg-light text-center">
+                管理
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+    <% end %>
+    <% kmondai.kchoices.each do |kchoice| %>
+      <div class="row ml-3 mr-3">
+        <div class="col-1">
+        </div>
+        <div class="col-1 border pt-2 text-center">
+            <%= kchoice.number %>
+        </div>  
+        <div class="col-7 border pt-2">
+            <%= kchoice.sentence %>
+        </div>
+        <div class="col-2 border text-center">
+            <button type="button" class="btn btn-outline-warning btn-sm" data-bs-toggle="modal" data-bs-target="#edit<%=kchoice.id%>">
+                編集
+            </button>
+            <%= link_to '削除', kchoice_destroy_path(:id => kchoice.id), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-outline-danger btn-sm" %>
+        </div>
+        <div class="col-1">
+        </div>
+      </div>
+    <% end %>
+    <br/>
+    <div class="row ml-3 mr-3">
+        <div class="col-1">
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                Add Choice
+            </button>
+        </div>
+    </div>
+
+    <div class="field">
+        <%= form.label :answer, "答え (複数ならカンマで使用　例： 1,2)" %>
+        <%= form.text_field :answer, class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= form.label :question, "問題" %>
+      <%= form.text_area :question, class: 'form-control' %>
+    </div>
+    
+    <div class="field">
+    <%= form.label :分類 %>
+      <select class="form-select form-select" name="kmondai[classification_name_id]" id="kmondai_classification_name_id">
+      <% @system_names.each do |sn| %>
+        <optgroup label="🔷<%=sn.content%>">
+        <% sn.order_names.each do |o_name| %>
+          <optgroup label="&nbsp;&nbsp;&nbsp;&nbsp;🔹<%=o_name.content%>">
+          <% o_name.classification_names.each do |c_name| %>
+            <% if c_name.id == @kmondai.classification_name.id %>
+              <option selected="selected" value="<%=c_name.id%>">&nbsp;&nbsp;&nbsp;&nbsp;<%=c_name.content%></option>
+            <% else %>
+              <option value="<%=c_name.id%>">&nbsp;&nbsp;&nbsp;&nbsp;<%=c_name.content%></option>
+            <% end %>
+          <% end %>
+          </optgroup>
+        <% end %>
+        </optgroup>
+      <% end %>
+      </select>
+    </div>
+
+    <div class="field">
+      <%= form.label :レベル %>
+      <select class="form-select form-select" name="kmondai[level]" id="kmondai_level">
+        <% (1..3).each do |i| %>
+          <% if i == kmondai.level %>
+            <option selected="selected" value=<%=i%> ><%= '⭐️'*i %></option>
+          <% else %>
+            <option value=<%=i%> ><%= '⭐️'*i %></option>
+          <% end %>
+        <% end %>
+      </select>
+    </div>
+
+    <div class="field">
+      <%= form.label :explanation, "説明" %>
+      <%= form.text_area :explanation, class: 'form-control' %>
+    </div>
+  
+    <div class="actions d-grid">
+      <%= form.submit '登録', class: 'btn btn-success btn3d' %>
+    </div>
+  <% end %>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Choice <%=kmondai.kchoices.count + 1%></h5>
+        </div>
+        
+        <div class="modal-body">
+          <%= form_for(:newchoice, url: newchoice_path) do |f| %>
+            <%= f.hidden_field :kmondai_id, value: kmondai.id %>
+            <%= f.label :column, "Sentence" %>
+            <%= f.text_area :sentence,  placeholder: "..." , class: 'form-control' %>
+            </br>
+            <%= f.submit '追加', class: "btn btn-outline-primary fluid" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% kmondai.kchoices.each do |kchoice| %>
+    <div class="modal fade" id="edit<%=kchoice.id%>" tabindex="-1" role="dialog" aria-labelledby="edit<%=kchoice.id%>Label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Choice <%=kchoice.number%></h5>
+            </div>
+            
+            <div class="modal-body">
+            <%= form_for(:editchoice, url: editchoice_path) do |f| %>
+                <%= f.hidden_field :kmondai_id, value: kmondai.id %>
+                <%= f.hidden_field :id, value: kchoice.id %>
+                <%= f.label :column, "Sentence" %>
+                <%= f.text_area :sentence, class: 'form-control', value: kchoice.sentence %>
+                </br>
+                <%= f.submit '追加', class: "btn btn-outline-primary fluid" %>
+            <% end %>
+            </div>
+        </div>
+        </div>
+    </div>
+  <% end %>

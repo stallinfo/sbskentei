@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_18_003024) do
+ActiveRecord::Schema.define(version: 2022_04_21_023245) do
 
   create_table "classification_names", force: :cascade do |t|
     t.text "content"
@@ -136,6 +136,10 @@ ActiveRecord::Schema.define(version: 2022_04_18_003024) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "oriquestion"
     t.boolean "demasu"
+    t.integer "classification_name_id", null: false
+    t.integer "user_id", null: false
+    t.index ["classification_name_id"], name: "index_kmondais_on_classification_name_id"
+    t.index ["user_id"], name: "index_kmondais_on_user_id"
   end
 
   create_table "order_names", force: :cascade do |t|
@@ -190,6 +194,8 @@ ActiveRecord::Schema.define(version: 2022_04_18_003024) do
   add_foreign_key "kchoices", "kmondais"
   add_foreign_key "kenteikaitous", "kmondais"
   add_foreign_key "kenteikaitous", "users"
+  add_foreign_key "kmondais", "classification_names"
+  add_foreign_key "kmondais", "users"
   add_foreign_key "order_names", "system_names"
   add_foreign_key "order_names", "users"
   add_foreign_key "system_names", "users"

@@ -55,6 +55,10 @@ Rails.application.routes.draw do
   get '/kmondaiexcel', to: 'kmondais#newexcel'
   post '/kmondaiexcel', to: 'kmondais#kentei_excel'
   post '/kenteianswer', to: 'kentei#dailyanswer'
+  get '/newkmondai', to: 'kmondais#newkmondai'
+  post '/newchoice', to: 'kmondais#newchoice'
+  post '/editchoice', to: 'kmondais#editchoice'
+  delete '/kchoice_destroy', to: 'kmondais#kchoice_destroy'
 
   post '/kentei_changedate', to: 'kentei#kentei_changedate'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
