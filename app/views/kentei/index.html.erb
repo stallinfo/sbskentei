@@ -87,10 +87,11 @@
               <% end %>
             <% else %>
               <% multiplecounter=0 %>
+              <% circle_numbers = ['0️⃣','1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟']
               <% multiplechoices.each do |kc| %>
                 <div class="row">
                   <% multiplecounter+=1 %>
-                  <div class="col-11 pl-5"><%= f.check_box :cbchoice, multiple: true %> <%= multiplecounter %>. 
+                  <div class="col-11 pl-5"><%= f.check_box :cbchoice, multiple: true %> <%= circle_numbers[multiplecounter] %>. 
                   <%= kc.sentence %></div>                  
                 </div>
               <% end %>
