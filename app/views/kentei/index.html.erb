@@ -10,7 +10,7 @@
         <%= form_for(:changedate, url: kentei_changedate_path) do |f| %>
           <div class="row">
             <div class="col-9">
-              <if @kentei %>
+              <%if @kentei %>
                 <h5><strong>分類：</strong> <%= @kentei.system %> <%= @kentei.order %> <%= @kentei.suborder %> <strong>レベル：</strong> <%= '⭐️'*@kentei.level.to_i %></h5>
               <% end %>
             </div>
