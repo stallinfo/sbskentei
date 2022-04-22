@@ -84,6 +84,21 @@
                     <div class="col-12"><%= f.radio_button :choices, :choice7 %> ⑦ <%= multiplechoices[6].sentence %></div>
                   </div> 
                 <% end %>
+                <% if multiplechoices[7]!=nil %>
+                  <div class="row">
+                    <div class="col-12"><%= f.radio_button :choices, :choice7 %> ⑧ <%= multiplechoices[7].sentence %></div>
+                  </div> 
+                <% end %>
+                <% if multiplechoices[8]!=nil %>
+                  <div class="row">
+                    <div class="col-12"><%= f.radio_button :choices, :choice7 %> ⑨ <%= multiplechoices[8].sentence %></div>
+                  </div> 
+                <% end %>
+                <% if multiplechoices[9]!=nil %>
+                  <div class="row">
+                    <div class="col-12"><%= f.radio_button :choices, :choice7 %> ⑩ <%= multiplechoices[9].sentence %></div>
+                  </div> 
+                <% end %>
               <% end %>
             <% else %>
               <% multiplecounter=0 %>
