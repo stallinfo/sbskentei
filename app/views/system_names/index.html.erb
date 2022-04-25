@@ -27,10 +27,10 @@
       <br/>
       <div class="col-12 ">
         <div class="row bg-warning pt-2">
-          <div class="col-2 text-center">
+          <div class="col-1 text-center">
             <h4>№</h4>
           </div>
-          <div class="col-7 text-center">
+          <div class="col-8 text-center">
             <h4>内容</h4>
           </div>
           <div class="col-3 text-center">
@@ -40,13 +40,13 @@
         <% counter = 1 %>
         <% @system_names.each do |system_name| %>
           <div class="row border-bottom pt-2">
-            <div class="col-2 text-center pt-2">
+            <div class="col-1 text-center pt-2">
               <%= counter %>
             </div>
-            <div class="col-7 pt-2">
+            <div class="col-8 border-start pt-2">
               <%= system_name.content %>
             </div>
-            <div class="col-3 text-center">
+            <div class="col-3 border-start text-center">
               <%= link_to '表示', system_name, class: "btn btn-success btn-sm btn3d" %>
               <%= link_to '編集', edit_system_name_path(system_name), class: "btn btn-warning btn-sm btn3d" %>
               <%= link_to '削除', system_name, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger btn-sm btn3d" %>
